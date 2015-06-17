@@ -21,11 +21,14 @@
   </form>
 
   <div class="container">
-    <div class="row">
-      <div ng-repeat="thing in awesomeThings" class="tweet">
-        <div class="arrow_box">
+    <div ng-repeat="thing in awesomeThings" class="tweet" style='margin: 10px;'>
+      <div class="row">
+        <h2 class="col-xs-2">
+          {{thing.user.name}}
+        </h2>
+        <div class="arrow_box col-xs-10">
           <h2 class="message">{{thing.name}}
-          <button type="button" class="close" ng-click="deleteThing(thing)">&times;</button>
+          <button ng-if="isMyTweet(thing)" type="button" class="close" ng-click="deleteThing(thing)">&times;</button>
           </h2>
         </div>
       </div>
