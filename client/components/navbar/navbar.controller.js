@@ -3,9 +3,21 @@
 angular.module('paizatterApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
-      'title': 'Home',
+      'title': 'All',
       'link': '/'
     }];
+    if(Auth.isLoggedIn()){
+      $scope.menu = $scope.menu.concat([
+        {
+          'title': 'Mine',
+          'link': '/users/' + Auth.getCurrentUser()._id
+        },{
+          'title': 'Starred',
+          'link': '/users/' + Auth.getCurrentUser()._id + '/starred'
+        }
+      ]);
+      console.log("concat");
+    }
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;

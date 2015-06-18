@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('paizatterApp')
-  .controller('MainCtrl', function ($scope, $http, socket, Auth) {
+  .controller('MainCtrl', function ($scope, $http, socket, Auth, query) {
     $scope.awesomeThings = [];
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
 
-    $http.get('/api/things').success(function(awesomeThings) {
+    $http.get('/api/things', {params: query}).success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
       socket.syncUpdates('thing', $scope.awesomeThings);
     });
