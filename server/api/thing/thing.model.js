@@ -11,6 +11,10 @@ var ThingSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
+  stars: [{
+    type: Schema.ObjectId,
+    ref: 'User'
+  }],
 });
 
 module.exports = mongoose.model('Thing', ThingSchema);
