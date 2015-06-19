@@ -19,7 +19,7 @@
     </p>
   </form>
 
-  <div class="container">
+  <div class="container" infinite-scroll='nextPage()' infinite-scroll-disabled='busy || noMoreData'>
     <div ng-repeat="thing in awesomeThings" class="tweet" style='margin: 10px;'>
       <div class="row">
         <h2 class="col-xs-2">
@@ -38,6 +38,7 @@
         </div>
       </div>
     </div>
+    <div ng-show='busy'>Loading data...</div>
   </div>
 
 </div>

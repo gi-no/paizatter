@@ -7,13 +7,35 @@ angular.module('paizatterApp')
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.keyword = $location.search().keyword;
+    $scope.busy = true;
+
     if($scope.keyword){
       query = _.merge(query, {name: {$regex: $scope.keyword, $options: 'i'}});
     }
     $http.get('/api/things', {params: {query: query}}).success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
       socket.syncUpdates('thing', $scope.awesomeThings);
+      if($scope.awesomeThings.length<20){
+        $scope.noMoreData = true;
+      }
+      $scope.busy = false;
     });
+
+    $scope.nextPage = function(){
+      if($scope.busy){
+        return;
+      }
+      $scope.busy = true;
+      var lastId = $scope.awesomeThings[$scope.awesomeThings.length-1]._id;
+      var pageQuery = _.merge(query, {_id: {$lt: lastId}});
+      $http.get('/api/things', {params: {query: query}}).success(function(awesomeThings_) {
+        $scope.awesomeThings = $scope.awesomeThings.concat(awesomeThings_);
+        $scope.busy = false;
+        if(awesomeThings_.length == 0){
+          $scope.noMoreData = true;
+        }
+      });
+    };
 
     $scope.addThing = function() {
       if($scope.newThing === '') {
