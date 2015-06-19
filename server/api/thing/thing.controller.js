@@ -14,7 +14,7 @@ var Thing = require('./thing.model');
 
 // Get list of things
 exports.index = function(req, res) {
-  Thing.find(req.query).sort({_id: -1}).limit(20).populate('user').exec(function (err, things) {
+  Thing.find(JSON.parse(req.query.query)).sort({_id: -1}).limit(20).populate('user').exec(function (err, things) {
     if(err) { return handleError(res, err); }
     return res.json(200, things);
   });

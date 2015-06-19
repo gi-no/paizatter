@@ -4,15 +4,15 @@ angular.module('paizatterApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('main', {
-        url: '/',
+        url: '/?keyword',
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl',
         resolve: {
-          query: function(){}
-        }
+          query: function(){return {}}
+        },
       })
       .state('starred', {
-        url: '/users/:userId/starred',
+        url: '/users/:userId/starred?keyword',
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl',
         resolve: {
@@ -22,7 +22,7 @@ angular.module('paizatterApp')
         }
       })
       .state('user', {
-        url: '/users/:userId',
+        url: '/users/:userId?keyword',
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl',
         resolve: {

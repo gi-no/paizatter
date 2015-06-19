@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('paizatterApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth) {
+  .controller('NavbarCtrl', function ($scope, $location, Auth, $timeout, $state) {
     $scope.menu = [{
       'title': 'All',
       'link': '/'
@@ -32,4 +32,10 @@ angular.module('paizatterApp')
     $scope.isActive = function(route) {
       return route === $location.path();
     };
+
+    $scope.search = function(keyword) {
+      var state = ($state.current.controller == 'MainCtrl') ? $state.current.name : 'main';
+      $state.go(state, {keyword: keyword});
+    };
+
   });
