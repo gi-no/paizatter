@@ -13,6 +13,10 @@ var ThingSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   }],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
 });
 
 module.exports = mongoose.model('Thing', ThingSchema);
