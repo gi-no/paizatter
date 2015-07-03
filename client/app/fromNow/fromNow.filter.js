@@ -3,6 +3,6 @@
 angular.module('paizatterApp')
   .filter('fromNow', function () {
     return function (input) {
-      return 'fromNow filter: ' + input;
+      return moment(input).fromNow();
     };
   });
