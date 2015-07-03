@@ -20,7 +20,6 @@ var ThingSchema = new Schema({
     default: Date.now
   },
 });
-console.log("indexing...");
 ThingSchema.index({tokenizedName: 'text', name: 'text'});
 ThingSchema.pre('save', function(next){
   var tinySegmenter = new TinySegmenter();

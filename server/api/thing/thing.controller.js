@@ -58,7 +58,7 @@ exports.destroy = function(req, res) {
   Thing.findById(req.params.id, function (err, thing) {
     if(err) { return handleError(res, err); }
     if(!thing) { return res.send(404); }
-    if(thing.user !== req.user._id){
+    if(thing.user.toString() !== req.user._id.toString()){
       return res.send(403);
     }
     thing.remove(function(err) {
