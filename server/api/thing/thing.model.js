@@ -18,5 +18,6 @@ var ThingSchema = new Schema({
     default: Date.now
   },
 });
+ThingSchema.index({name: 'text'});
 
 module.exports = mongoose.model('Thing', ThingSchema);

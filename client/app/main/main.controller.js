@@ -6,11 +6,14 @@ angular.module('paizatterApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
-    $scope.keyword = $location.search().keyword;
+    var keyword = $location.search().keyword;
     $scope.busy = true;
 
-    if($scope.keyword){
-      query = _.merge(query, {name: {$regex: $scope.keyword, $options: 'i'}});
+    if(keyword){
+      // RegEx search
+      // query = _.merge(query, {name: {$regex: $scope.keyword, $options: 'i'}});
+      // Full-text search
+      query = _.merge(query, {$text: {$search: keyword}});
     }
     $http.get('/api/things', {params: {query: query}}).success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
