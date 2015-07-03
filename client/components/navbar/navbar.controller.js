@@ -16,7 +16,6 @@ angular.module('paizatterApp')
           'link': '/users/' + Auth.getCurrentUser()._id + '/starred'
         }
       ]);
-      console.log("concat");
     }
 
     $scope.isCollapsed = true;
@@ -34,7 +33,7 @@ angular.module('paizatterApp')
     };
 
     $scope.search = function(keyword) {
-      var state = ($state.current.controller == 'MainCtrl') ? $state.current.name : 'main';
+      var state = ($state.current.controller === 'MainCtrl') ? $state.current.name : 'main';
       $state.go(state, {keyword: keyword});
     };
 

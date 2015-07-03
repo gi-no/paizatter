@@ -8,7 +8,7 @@ angular.module('paizatterApp')
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl',
         resolve: {
-          query: function(){return {}}
+          query: function(){return {};}
         },
       })
       .state('starred', {
@@ -17,7 +17,7 @@ angular.module('paizatterApp')
         controller: 'MainCtrl',
         resolve: {
           query: function($stateParams){
-            return {stars: $stateParams.userId}
+            return {stars: $stateParams.userId};
           }
         }
       })
@@ -27,7 +27,7 @@ angular.module('paizatterApp')
         controller: 'MainCtrl',
         resolve: {
           query: function($stateParams){
-            return {user: $stateParams.userId}
+            return {user: $stateParams.userId};
           }
         }
       })

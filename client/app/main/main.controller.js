@@ -31,10 +31,10 @@ angular.module('paizatterApp')
       $scope.busy = true;
       var lastId = $scope.awesomeThings[$scope.awesomeThings.length-1]._id;
       var pageQuery = _.merge(query, {_id: {$lt: lastId}});
-      $http.get('/api/things', {params: {query: query}}).success(function(awesomeThings_) {
+      $http.get('/api/things', {params: {query: pageQuery}}).success(function(awesomeThings_) {
         $scope.awesomeThings = $scope.awesomeThings.concat(awesomeThings_);
         $scope.busy = false;
-        if(awesomeThings_.length == 0){
+        if(awesomeThings_.length === 0){
           $scope.noMoreData = true;
         }
       });
@@ -70,6 +70,6 @@ angular.module('paizatterApp')
     };
     $scope.isMyStar = function(thing){
       return Auth.isLoggedIn() && thing.stars && thing.stars.indexOf(Auth.getCurrentUser()._id)!==-1;
-    }
+    };
 
   });
