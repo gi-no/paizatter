@@ -2,21 +2,23 @@
 
 angular.module('paizatterApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth, $timeout, $state) {
-    $scope.menu = [{
-      'title': 'All',
-      'link': '/'
-    }];
-    if(Auth.isLoggedIn()){
-      $scope.menu = $scope.menu.concat([
-        {
-          'title': 'Mine',
-          'link': '/users/' + Auth.getCurrentUser()._id
-        },{
-          'title': 'Starred',
-          'link': '/users/' + Auth.getCurrentUser()._id + '/starred'
-        }
-      ]);
-    }
+    $scope.menu = [
+      {
+        'title': 'All',
+        'link': function(){return '/';},
+        'show': function(){return true;},
+      },
+      {
+        'title': 'Mine',
+        'link': function(){return '/users/' + Auth.getCurrentUser()._id;},
+        'show': Auth.isLoggedIn,
+      },
+      {
+        'title': 'Starred',
+        'link': function(){return '/users/' + Auth.getCurrentUser()._id + '/starred'},
+        'show': Auth.isLoggedIn,
+      },
+    ];
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
@@ -33,8 +35,11 @@ angular.module('paizatterApp')
     };
 
     $scope.search = function(keyword) {
-      var state = ($state.current.controller === 'MainCtrl') ? $state.current.name : 'main';
-      $state.go(state, {keyword: keyword});
+      if ($state.current.controller == 'MainCtrl'){
+        $state.go($state.current.name, {keyword: keyword}, {reload: true});
+      }else{
+        $state.go('main', {keyword: keyword}, {reload: true});
+      }
     };
 
   });
