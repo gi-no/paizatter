@@ -15,7 +15,7 @@ angular.module('paizatterApp')
       },
       {
         'title': 'Starred',
-        'link': function(){return '/users/' + Auth.getCurrentUser()._id + '/starred'},
+        'link': function(){return '/users/' + Auth.getCurrentUser()._id + '/starred';},
         'show': Auth.isLoggedIn,
       },
     ];
@@ -35,7 +35,7 @@ angular.module('paizatterApp')
     };
 
     $scope.search = function(keyword) {
-      if ($state.current.controller == 'MainCtrl'){
+      if ($state.current.controller === 'MainCtrl'){
         $state.go($state.current.name, {keyword: keyword}, {reload: true});
       }else{
         $state.go('main', {keyword: keyword}, {reload: true});
