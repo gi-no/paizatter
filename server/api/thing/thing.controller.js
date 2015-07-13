@@ -15,7 +15,7 @@ var Thing = require('./thing.model');
 // Get list of things
 exports.index = function(req, res) {
   var query = req.query.query && JSON.parse(req.query.query);
-  Thing.find(query).sort({_id: -1}).limit(20).populate('user').exec(function (err, things) {
+  Thing.find(query).sort({_id: -1}).limit(20).populate('user', 'name').exec(function (err, things) {
     if(err) { return handleError(res, err); }
     return res.json(200, things);
   });
@@ -23,7 +23,7 @@ exports.index = function(req, res) {
 
 // Get a single thing
 exports.show = function(req, res) {
-  Thing.findById(req.params.id).populate('user').exec(function (err, thing) {
+  Thing.findById(req.params.id).populate('user', 'name').exec(function (err, thing) {
     if(err) { return handleError(res, err); }
     if(!thing) { return res.send(404); }
     return res.json(thing);
